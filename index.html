@@ -38,6 +38,45 @@
             font-display: swap;
         }
 
+        /* SPOTIFY MIX THIN */
+        @font-face {
+            font-family: 'SpotifyMix';
+            src: url('fonts/SpotifyMix-Thin.otf') format('opentype');
+            font-weight: 100;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* SPOTIFY MIX NARROW FONTS */
+        @font-face {
+            font-family: 'SpotifyMixNarrow';
+            src: url('fonts/SpotifyMixNarrow-Regular.otf') format('opentype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'SpotifyMixNarrow';
+            src: url('fonts/SpotifyMixNarrow-Light.otf') format('opentype');
+            font-weight: 300;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'SpotifyMixNarrow';
+            src: url('fonts/SpotifyMixNarrow-Medium.otf') format('opentype');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'SpotifyMixNarrow';
+            src: url('fonts/SpotifyMixNarrow-BoldItalic.otf') format('opentype');
+            font-weight: 700;
+            font-style: italic;
+            font-display: swap;
+        }
+
         :root { --spotify-green: #1DB954; }
         body {
             background-color: #0c0c0c; color: white;
@@ -59,6 +98,23 @@
         .news-mix-thin {
             font-family: 'SpotifyMix', sans-serif !important;
             font-weight: 400; line-height: 1.2; white-space: pre-line;
+        }
+        /* New font weight classes for Poster mode */
+        .spotifymix-regular {
+            font-family: 'SpotifyMix', sans-serif !important;
+            font-weight: 400; line-height: 1.1; white-space: pre-line;
+        }
+        .spotifymix-thin {
+            font-family: 'SpotifyMix', sans-serif !important;
+            font-weight: 100; line-height: 1.2; white-space: pre-line;
+        }
+        .spotifymixnarrow-medium {
+            font-family: 'SpotifyMixNarrow', sans-serif !important;
+            font-weight: 500; line-height: 1.1; white-space: pre-line;
+        }
+        .spotifymixnarrow-light {
+            font-family: 'SpotifyMixNarrow', sans-serif !important;
+            font-weight: 300; line-height: 1.2; white-space: pre-line;
         }
         .txt-accent { color: var(--accent-color); }
         .txt-giant {
@@ -98,7 +154,7 @@
             position: relative; z-index: 10; display: flex;
             flex-direction: column; padding: 2.8rem; box-sizing: border-box; overflow: hidden;
         }
-        .spotify-bug { position: absolute; top: 2.5rem; left: 2.5rem; z-index: 50; }
+        .spotify-bug { position: absolute; top: 1rem; left: 1rem; z-index: 50; }
 
         /* --- LISTA: items --- */
         .list-item-row {
@@ -362,11 +418,11 @@
         <!-- MODE TABS -->
         <div class="flex gap-2 mb-6">
             <button class="mode-tab active" id="tab-poster" onclick="setMode('poster')">Poster</button>
-            <button class="mode-tab" id="tab-lista" onclick="setMode('lista')">Lista</button>
+            <button class="mode-tab" id="tab-lista" onclick="setMode('lista')">List</button>
         </div>
 
         <!-- SHARED: palette + format -->
-        <div class="space-y-4 mb-6">
+        <div id="shared-controls" class="space-y-4 mb-6">
             <div class="input-group">
                 <label>Color Palette</label>
                 <select id="in-palette" class="sidebar-input" onchange="render()">
@@ -412,8 +468,10 @@
                     <div><span class="text-[9px] text-zinc-500 font-bold uppercase">Base Size</span><input type="range" id="in-desc-size" min="12" max="42" value="20" oninput="render()"></div>
                     <div><span class="text-[9px] text-zinc-500 font-bold uppercase">Weight</span>
                         <select id="in-desc-variant" class="sidebar-input py-1 text-[10px]" onchange="render()">
-                            <option value="news-mix-regular">Mix Bold (700)</option>
-                            <option value="news-mix-thin">Mix Regular (400)</option>
+                            <option value="spotifymix-regular">SpotifyMix Regular</option>
+                            <option value="spotifymix-thin">SpotifyMix Thin</option>
+                            <option value="spotifymixnarrow-medium">SpotifyMixNarrow Medium</option>
+                            <option value="spotifymixnarrow-light">SpotifyMixNarrow Light</option>
                         </select>
                     </div>
                 </div>
@@ -438,7 +496,7 @@
         <div id="panel-lista" class="space-y-4" style="display:none;">
             <div class="input-group">
                 <label>Intro Headline</label>
-                <input type="text" id="li-title" class="sidebar-input" placeholder="TOP STREAMS THIS WEEK" oninput="render()">
+                <input type="text" id="li-title" class="sidebar-input" placeholder="TOP STREAMS THIS WEEK" value="TOP STREAMS THIS WEEK" oninput="render()">
                 <div class="flex items-center gap-2 mt-2">
                     <span class="text-[9px] text-zinc-500 font-bold uppercase">Size</span>
                     <input type="range" id="li-title-size" min="16" max="80" value="38" oninput="render()">
@@ -446,7 +504,7 @@
             </div>
             <div class="input-group">
                 <label>Intro Subtitle</label>
-                <input type="text" id="li-subtitle" class="sidebar-input" placeholder="Spotify · 2024" oninput="render()">
+                <input type="text" id="li-subtitle" class="sidebar-input" placeholder="Spotify · 2024" value="Spotify · 2024" oninput="render()">
             </div>
 
             <div class="border-t border-zinc-800 pt-4">
@@ -471,6 +529,7 @@
             </div>
         </div>
 
+
         <button class="btn-export w-full mt-6" onclick="download()">Export PNG</button>
     </aside>
 
@@ -481,7 +540,7 @@
                 <div id="bg-layer" class="bg-layer"></div>
                 <div class="grain-overlay"></div>
                 <div class="black-inner-box">
-                    <div class="spotify-bug text-white opacity-95">
+                    <div class="spotify-bug text-zinc-400 opacity-95">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.508 17.302c-.223.367-.703.483-1.07.26-2.917-1.783-6.59-2.185-10.915-1.196-.419.096-.842-.167-.938-.586-.096-.419.167-.842.586-.938 4.733-1.082 8.784-.622 12.077 1.391.367.223.483.703.26 1.07zm1.472-3.26c-.281.458-.881.602-1.339.321-3.34-2.053-8.432-2.646-12.382-1.447-.514.156-1.062-.132-1.218-.646-.156-.514.132-1.062.646-1.218 4.517-1.371 10.134-.71 13.973 1.649.458.281.602.881.32 1.339zm.126-3.413c-4.007-2.378-10.613-2.597-14.455-1.43-.615.187-1.263-.166-1.449-.781-.187-.615.166-1.263.781-1.449 4.417-1.34 11.696-1.084 16.3 1.646.554.329.739 1.042.41 1.597-.329.554-1.041.739-1.597.417h.01z"/></svg>
                     </div>
                     <div id="render-target" class="flex-1 flex flex-col h-full overflow-hidden mt-10"></div>
@@ -515,6 +574,7 @@
             document.getElementById('panel-lista').style.display  = m === 'lista'  ? '' : 'none';
             document.getElementById('tab-poster').classList.toggle('active', m === 'poster');
             document.getElementById('tab-lista').classList.toggle('active',  m === 'lista');
+
             render();
         }
 
@@ -727,19 +787,29 @@
             target.innerHTML = html;
         }
 
+
         async function download() {
             await document.fonts.ready;
             const canvas  = document.getElementById('canvas');
             const wrapper = document.getElementById('canvas-wrapper');
 
+            // Reset transform and force multiple reflows
             wrapper.style.transform = 'none';
+            canvas.offsetHeight; // Force reflow
+            await new Promise(r => setTimeout(r, 100)); // Wait for render
             await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
 
             let savedHTML = null;
+
             if (mode === 'lista') {
-                const target     = document.getElementById('render-target');
+                const target = document.getElementById('render-target');
+                savedHTML = target.innerHTML;
+
+                // Force another reflow before measuring
+                target.offsetHeight;
+                await new Promise(r => requestAnimationFrame(r));
+
                 const targetRect = target.getBoundingClientRect();
-                savedHTML        = target.innerHTML;
 
                 const measure = (el) => {
                     const r = el.getBoundingClientRect();
@@ -753,11 +823,15 @@
 
                 let absHTML = `<div style="position:relative;width:100%;height:100%;">`;
 
-                const headerBlock = target.querySelector('div');
+                // More specific selector for header block (first direct child with margin-bottom)
+                const headerBlock = target.querySelector('div[style*="margin-bottom"]');
                 if (headerBlock) {
+                    const headerRect = measure(headerBlock);
                     Array.from(headerBlock.children).forEach(child => {
                         const cRect = measure(child);
-                        absHTML += `<div style="position:absolute;top:${cRect.top}px;left:${cRect.left}px;width:${cRect.width}px;">
+                        // Copy computed styles for better accuracy
+                        const computed = window.getComputedStyle(child);
+                        absHTML += `<div style="position:absolute;top:${cRect.top}px;left:${cRect.left}px;width:${cRect.width}px;height:${cRect.height}px;">
                             ${child.outerHTML}
                         </div>`;
                     });
@@ -765,10 +839,13 @@
 
                 const rows = target.querySelectorAll('[style*="display:table"]');
                 rows.forEach(row => {
+                    const rowRect = measure(row);
                     const cells = row.querySelectorAll('[style*="display:table-cell"]');
+
                     cells.forEach(cell => {
                         const cellRect = measure(cell);
                         const img = cell.querySelector('img');
+
                         if (img) {
                             const iRect = measure(img);
                             absHTML += `<div style="position:absolute;top:${iRect.top}px;left:${iRect.left}px;width:${iRect.width}px;height:${iRect.height}px;overflow:hidden;">
@@ -776,16 +853,19 @@
                             </div>`;
                         } else {
                             const spans = cell.querySelectorAll('span');
-                            let totalH = 0;
-                            const spanMeasures = Array.from(spans).map(s => {
-                                const sr = measure(s);
-                                totalH += sr.height;
-                                return sr;
-                            });
-                            spans.forEach((s, si) => { if (si > 0) totalH += 4; });
 
-                            const rowRect = measure(row);
-                            const vStart  = rowRect.top + Math.round((rowRect.height - totalH) / 2);
+                            // Measure each span with forced reflow
+                            const spanMeasures = Array.from(spans).map(s => {
+                                s.offsetHeight; // Force reflow
+                                return measure(s);
+                            });
+
+                            // Calculate total height including gaps
+                            let totalH = spanMeasures.reduce((sum, sm) => sum + sm.height, 0);
+                            if (spans.length > 1) totalH += (spans.length - 1) * 4;
+
+                            // Calculate vertical centering based on actual row height
+                            const vStart = rowRect.top + Math.round((rowRect.height - totalH) / 2);
                             const textLeft = spanMeasures.length > 0
                                 ? spanMeasures[0].left
                                 : cellRect.left + 16;
@@ -793,7 +873,7 @@
                             let cursor = vStart;
                             spans.forEach((s, si) => {
                                 const sr = spanMeasures[si];
-                                absHTML += `<div style="position:absolute;top:${cursor}px;left:${textLeft}px;width:${cellRect.width}px;">
+                                absHTML += `<div style="position:absolute;top:${cursor}px;left:${textLeft}px;width:${cellRect.width}px;height:${sr.height}px;">
                                     ${s.outerHTML}
                                 </div>`;
                                 cursor += sr.height + (si < spans.length - 1 ? 4 : 0);
@@ -804,6 +884,10 @@
 
                 absHTML += `</div>`;
                 target.innerHTML = absHTML;
+
+                // Force reflow and wait before capturing
+                target.offsetHeight;
+                await new Promise(r => setTimeout(r, 150));
                 await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
             }
 
@@ -818,10 +902,44 @@
                     height: canvas.offsetHeight,
                     onclone: (clonedDoc) => {
                         const clonedWrapper = clonedDoc.getElementById('canvas-wrapper');
-                        clonedWrapper.style.transform = 'none';
-                        clonedWrapper.style.display = 'block';
+                        if (clonedWrapper) {
+                            clonedWrapper.style.transform = 'none';
+                            clonedWrapper.style.display = 'block';
+                        }
 
-                        const liveGiants   = document.querySelectorAll('.txt-giant');
+                        // Copy all computed styles for text elements in lista mode
+                        if (mode === 'lista') {
+                            // Copy header styles
+                            const liveHeaders = document.querySelectorAll('[style*="font-weight:900"]');
+                            const clonedHeaders = clonedDoc.querySelectorAll('[style*="font-weight:900"]');
+                            liveHeaders.forEach((live, i) => {
+                                const cloned = clonedHeaders[i];
+                                if (!cloned) return;
+                                const cs = window.getComputedStyle(live);
+                                cloned.style.fontSize = cs.fontSize;
+                                cloned.style.lineHeight = cs.lineHeight;
+                                cloned.style.fontWeight = cs.fontWeight;
+                                cloned.style.fontStyle = cs.fontStyle;
+                                cloned.style.letterSpacing = cs.letterSpacing;
+                            });
+
+                            // Copy all span styles
+                            const liveSpans = document.querySelectorAll('#render-target span');
+                            const clonedSpans = clonedDoc.querySelectorAll('#render-target span');
+                            liveSpans.forEach((live, i) => {
+                                const cloned = clonedSpans[i];
+                                if (!cloned) return;
+                                const cs = window.getComputedStyle(live);
+                                cloned.style.fontSize = cs.fontSize;
+                                cloned.style.lineHeight = cs.lineHeight;
+                                cloned.style.fontWeight = cs.fontWeight;
+                                cloned.style.fontFamily = cs.fontFamily;
+                                cloned.style.fontStyle = cs.fontStyle;
+                            });
+                        }
+
+                        // Handle poster mode text elements
+                        const liveGiants = document.querySelectorAll('.txt-giant');
                         const clonedGiants = clonedDoc.querySelectorAll('.txt-giant');
                         liveGiants.forEach((g, i) => {
                             const cs = window.getComputedStyle(g);
@@ -838,7 +956,9 @@
                         clonedDoc.querySelectorAll('.news-wide').forEach((el, i) => {
                             const live = document.querySelectorAll('.news-wide')[i];
                             if (!live) return;
-                            el.style.lineHeight = window.getComputedStyle(live).lineHeight;
+                            const cs = window.getComputedStyle(live);
+                            el.style.lineHeight = cs.lineHeight;
+                            el.style.fontSize = cs.fontSize;
                         });
                     }
                 });
